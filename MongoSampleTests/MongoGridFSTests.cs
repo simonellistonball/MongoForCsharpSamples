@@ -8,8 +8,6 @@ namespace MongoSampleTests
     public class MongoGridFSTests: MongoSampleTestBase
     {
 
-        private MongoGridFS gridFs;
-
         [TestInitialize]
         override public void Setup()
         {
@@ -22,7 +20,7 @@ namespace MongoSampleTests
             });*/
         }
         [TestCleanup]
-        public void TearDown()
+        public override void TearDown()
         {
             TearDownDatabase();
             database.DropCollection("fs.chunks");

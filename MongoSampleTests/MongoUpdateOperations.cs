@@ -32,7 +32,7 @@ namespace MongoSampleTests
                     WriteConcern = WriteConcern.WMajority
                 });
             }
-            catch (WriteConcernException e)
+            catch (WriteConcernException)
             {
                 // the above will throw an exception if we're not using a replicated mongo instance
             }

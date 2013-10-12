@@ -19,12 +19,13 @@ namespace MongoSampleTests
             MongoCursor<BsonDocument> documentResults = documentCollection.FindAll();
             MongoCursor<Developer> developerResults = collection.FindAllAs<Developer>();
             // MongoCursor is an IEnumarable. The query is only actually run when we enumerate
+            
             try
             {
                 // note that this requires the extension methods in System.Linq
                 List<Developer> allDevelopers = developerResults.ToList<Developer>();
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
         }
