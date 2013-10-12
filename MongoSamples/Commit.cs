@@ -9,7 +9,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace MongoSamples
 {
     [Serializable]
-    class Commit : ISupportInitialize
+    public class Commit : ISupportInitialize
     {
         public string CommitId { get; set; }
         

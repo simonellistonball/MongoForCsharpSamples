@@ -8,14 +8,15 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace MongoSamples
 {
     [Serializable]
-    class Developer
+    public class Developer
     {
         [BsonConstructor]
-        public Developer(int personId, string firstName, string lastName)
+        public Developer(int personId, string firstName, string lastName, string jobTitle)
         {
             PersonId = personId;
             FirstName = firstName;
             LastName = lastName;
+            JobTitle = jobTitle;
         }
 
         [BsonId]

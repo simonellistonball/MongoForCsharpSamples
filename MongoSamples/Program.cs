@@ -5,54 +5,41 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 
 namespace MongoSamples
 {
     class Program
     {
+        private const string connectionString = "mongodb://localhost";
+
         static void Main(string[] args)
         {
-            var connectionString = "mongodb://localhost";
             var client = new MongoClient(connectionString);
-            var server = client.GetServer();
-            var database = server.GetDatabase("test");
-
-            // two choices of collection type:
-            // One based on generic BsonDocumnets
-            var documentCollection = database.GetCollection("team");
-            // And another tied to our domain model
-            var developerCollection = database.GetCollection<Developer>("team");
-
-            // create some entries 
-            var Developer = new Developer(1,"Test", "Person");
-            developerCollection.Insert(Developer);
-            var Developer2 = new Developer(2,"Another", "Developer");
-            developerCollection.Insert(Developer2);
-
-            BsonDocument document = new BsonDocument();
-            document.Add(new BsonElement("name", "Testing"))
-                .Add(new BsonElement("number", new BsonInt32(42)));
-
-            documentCollection.Insert(document);
-
-            // read back
-            MongoCursor<BsonDocument> documentResults = documentCollection.FindAll();
-            MongoCursor<Developer> developerResults = developerCollection.FindAll();
-
-            // MongoCursor is an IEnumarable. The query is only actually run when we enumerate
-            List<Developer> allDevelopers = developerResults.ToList<Developer>();
-
-            // update
-
-
-
-            // upsert
-
-            // delete 
-
-
-
+            var server = client.GetServer(); 
+            var database = server.GetDatabase("osm");
+            var collection = database.GetCollection("map");
             
+            var query = Query.EQ("properties.amenity", new BsonString("pub"));
+            
+            double lon = 54.9117468;
+            double lat = -1.3737675;
+
+            var earthRadius = 6378.0; // km
+            var rangeInKm = 3000.0; // km
+
+            var options = GeoNearOptions
+                    .SetMaxDistance(rangeInKm / earthRadius /* to radians */)
+                    .SetSpherical(true);
+
+            var results = collection.GeoNear(query, lat, lon, 10, options);
+
+            foreach (var result in results.Hits)
+            {
+                Console.WriteLine(result.Document["properties"]["name"]);
+            }
+            Console.ReadKey();
+
         }
     }
 }
