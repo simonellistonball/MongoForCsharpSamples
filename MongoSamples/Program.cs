@@ -36,8 +36,13 @@ namespace MongoSamples
 
             foreach (var result in results.Hits)
             {
-                Console.WriteLine(result.Document["properties"]["name"]);
+                Console.WriteLine(String.Format("{0} [{1}, {2}]", 
+                    result.Document["properties"]["name"],
+                    result.Document["geometry"]["coordinates"][0],
+                    result.Document["geometry"]["coordinates"][1]
+                ));
             }
+
             Console.ReadKey();
 
         }
