@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MongoSampleTests
 {
     [TestClass]
-    public class MaprReduceTests : MongoSampleTestBase
+    public class MapReduceTests : MongoSampleTestBase
     {
         [TestMethod]
         public void TestMapReduce()
