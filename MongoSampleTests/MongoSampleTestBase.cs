@@ -53,7 +53,7 @@ namespace MongoSampleTests
         }
 
 
-        protected void PopulateDatabase()
+        protected virtual void PopulateDatabase()
         {
             // create some entries 
             var developer = new Developer(1, "Test", "Person", "Developer");

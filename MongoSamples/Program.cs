@@ -21,9 +21,9 @@ namespace MongoSamples
             var collection = database.GetCollection("map");
             
             var query = Query.EQ("properties.amenity", new BsonString("pub"));
-            
-            double lon = 54.9117468;
-            double lat = -1.3737675;
+
+            double lon = 51.5060089;
+            double lat = 0.0371037;
 
             var earthRadius = 6378.0; // km
             var rangeInKm = 3000.0; // km
@@ -36,11 +36,16 @@ namespace MongoSamples
 
             foreach (var result in results.Hits)
             {
-                Console.WriteLine(String.Format("{0} [{1}, {2}]", 
-                    result.Document["properties"]["name"],
-                    result.Document["geometry"]["coordinates"][0],
-                    result.Document["geometry"]["coordinates"][1]
-                ));
+                try
+                {
+                    var name = result.Document["properties"]["name"];
+                    Console.WriteLine(String.Format("{0}",
+                        name
+                    ));
+                }
+                catch (Exception e)
+                {
+                }
             }
 
             Console.ReadKey();

@@ -17,8 +17,9 @@ namespace MongoSampleTests
             var collection = database.GetCollection("map");
             var query = Query.EQ("properties.amenity", new BsonString("pub"));
 
-            double lon = 54.9117468;
-            double lat = -1.3737675;
+            // coordinates for the excel centre
+            double lon = 51.5060089;
+            double lat = 0.0371037;
 
             var earthRadius = 6378.0; // km
             var rangeInKm = 3000.0; // km
@@ -32,5 +33,7 @@ namespace MongoSampleTests
             Assert.AreEqual(10, results.Hits.Count);
 
         }
+
+        protected override void PopulateDatabase() { }
     }
 }
